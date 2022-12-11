@@ -11,6 +11,7 @@
 		920815522945985C0032F4E8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920815512945985C0032F4E8 /* ContentView.swift */; };
 		920815542945985F0032F4E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 920815532945985F0032F4E8 /* Assets.xcassets */; };
 		920815572945985F0032F4E8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 920815562945985F0032F4E8 /* Preview Assets.xcassets */; };
+		92081561294674360032F4E8 /* start.txt in Resources */ = {isa = PBXBuildFile; fileRef = 92081560294674360032F4E8 /* start.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		9208155D294598820032F4E8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9208155E294598B50032F4E8 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		9208155F294598DE0032F4E8 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		92081560294674360032F4E8 /* start.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = start.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 		9208154E2945985C0032F4E8 /* WordScramble */ = {
 			isa = PBXGroup;
 			children = (
+				92081560294674360032F4E8 /* start.txt */,
 				9208154F2945985C0032F4E8 /* WordScrambleApp.swift */,
 				920815512945985C0032F4E8 /* ContentView.swift */,
 				920815532945985F0032F4E8 /* Assets.xcassets */,
@@ -132,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				920815572945985F0032F4E8 /* Preview Assets.xcassets in Resources */,
+				92081561294674360032F4E8 /* start.txt in Resources */,
 				920815542945985F0032F4E8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,16 +7,39 @@
 
 import SwiftUI
 
+func getStartingWord() -> String {
+    let input = """
+                a
+                b
+                c
+                """
+    let letters = input.components(separatedBy: "\n")
+    
+    let letter = letters.randomElement()
+    return letter!
+}
+
+func isSpelledCorrectly(word: String) -> Bool {
+    let checker = UITextChecker()
+    let range = NSRange(location: 0, length: word.utf16.count)
+    let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
+    
+    return misspelledRange.location == NSNotFound
+}
+
 struct ContentView: View {
+    @State private var word = getStartingWord()
+    @State private var correctSpelling = isSpelledCorrectly(word: "oordvark")
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Text(word)
+            Text(String(correctSpelling))
         }
-        .padding()
+        
     }
+
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
