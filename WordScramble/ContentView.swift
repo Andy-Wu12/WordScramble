@@ -7,18 +7,6 @@
 
 import SwiftUI
 
-func getStartingWord() -> String {
-    let input = """
-                a
-                b
-                c
-                """
-    let letters = input.components(separatedBy: "\n")
-    
-    let letter = letters.randomElement()
-    return letter!
-}
-
 func isSpelledCorrectly(word: String) -> Bool {
     let checker = UITextChecker()
     let range = NSRange(location: 0, length: word.utf16.count)
@@ -38,6 +26,7 @@ struct ContentView: View {
                 Section {
                     TextField("Enter your word", text: $newWord)
                         .onSubmit(addNewWord)
+                        .onAppear(perform: startGame)
                         .textInputAutocapitalization(.never)
                 }
 
@@ -70,6 +59,24 @@ struct ContentView: View {
         newWord = ""
     }
     
+    func startGame() {
+        if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
+            if let startWords = try? String(contentsOf: startWordsURL) {
+                rootWord = getStartingWord(from: startWords)
+                // If we are here everything has worked, so we can exit
+                return
+            }
+        }
+
+        // If were are *here* then there was a problem – trigger a crash and report the error
+        fatalError("Could not load start.txt from bundle.")
+    }
+    
+    func getStartingWord(from words: String) -> String {
+        let wordList = words.components(separatedBy: "\n")
+        
+        return wordList.randomElement() ?? "snapshot"
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
