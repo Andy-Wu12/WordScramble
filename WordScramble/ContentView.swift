@@ -28,17 +28,47 @@ func isSpelledCorrectly(word: String) -> Bool {
 }
 
 struct ContentView: View {
-    @State private var word = getStartingWord()
-    @State private var correctSpelling = isSpelledCorrectly(word: "oordvark")
+    @State private var usedWords = [String]()
+    @State private var rootWord = ""
+    @State private var newWord = ""
     
     var body: some View {
-        VStack {
-            Text(word)
-            Text(String(correctSpelling))
+        NavigationView {
+            List {
+                Section {
+                    TextField("Enter your word", text: $newWord)
+                        .onSubmit(addNewWord)
+                        .textInputAutocapitalization(.never)
+                }
+
+                Section {
+                    ForEach(usedWords, id: \.self) { word in
+                        HStack {
+                            Image(systemName: "\(word.count).circle")
+                            Text(word)
+                        }
+                    }
+                }
+            }
+            .navigationTitle(rootWord)
+        }
+    }
+    
+    func addNewWord() {
+        // Convert user input to lowercase and trim to support preventing duplicates
+        let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Do nothing if input empty
+        guard answer.count > 0 else { return }
+        
+        // TODO: more validation such as duplicate input already exists
+        
+        withAnimation {
+            usedWords.insert(answer, at: 0)
         }
         
+        newWord = ""
     }
-
     
 }
 
