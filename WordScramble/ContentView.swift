@@ -16,6 +16,8 @@ func isReal(word: String) -> Bool {
 }
 
 struct ContentView: View {
+    @FocusState private var inputIsFocused: Bool
+    
     @State private var usedWords = [String]()
     @State private var rootWord = ""
     @State private var newWord = ""
@@ -29,8 +31,11 @@ struct ContentView: View {
         NavigationView {
             List {
                 Text("Score: \(score)")
+                    .textSelection(.disabled)
                 Section {
                     TextField("Enter your word", text: $newWord)
+                        .keyboardType(.alphabet)
+                        .autocorrectionDisabled(true)
                         .onSubmit(addNewWord)
                         .onAppear(perform: startGame)
                         .alert(errorTitle, isPresented: $showingError) {
@@ -39,6 +44,7 @@ struct ContentView: View {
                             Text(errorMessage)
                         }
                         .textInputAutocapitalization(.never)
+                        .focused($inputIsFocused)
                 }
                 
                 Section {
@@ -68,7 +74,7 @@ struct ContentView: View {
         guard answer.count > 0 else { return }
         
         guard isOriginal(word: answer) else {
-            wordError(title: "Word used already", message: "Don't repeat guesses")
+            wordError(title: "Repeated guess", message: "Word already found")
             return
         }
         
@@ -93,6 +99,7 @@ struct ContentView: View {
         
         score += getWordValue(word: answer)
         newWord = ""
+        inputIsFocused = true
     }
     
     func startGame() {
@@ -122,7 +129,7 @@ struct ContentView: View {
     }
     
     func isOriginal(word: String) -> Bool {
-        !usedWords.contains(word)
+        return !usedWords.contains(word) && word != rootWord
     }
     
     func isPossible(word: String) -> Bool {
