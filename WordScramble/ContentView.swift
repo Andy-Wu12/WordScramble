@@ -47,6 +47,12 @@ struct ContentView: View {
                     }
                 }
             }
+            .toolbar {
+                Button("New Word") {
+                    resetGame()
+                    startGame()
+                }
+            }
             .navigationTitle(rootWord)
         }
     }
@@ -58,7 +64,6 @@ struct ContentView: View {
         // Do nothing if input empty
         guard answer.count > 0 else { return }
         
-        // TODO: more validation such as duplicate input already exists
         guard isOriginal(word: answer) else {
             wordError(title: "Word used already", message: "Don't repeat guesses")
             return
@@ -78,6 +83,7 @@ struct ContentView: View {
             wordError(title: "Word too short", message: "Guesses must be longer than two characters")
             return
         }
+        
         withAnimation {
             usedWords.insert(answer, at: 0)
         }
@@ -96,6 +102,12 @@ struct ContentView: View {
 
         // If were are *here* then there was a problem – trigger a crash and report the error
         fatalError("Could not load start.txt from bundle.")
+    }
+    
+    func resetGame() {
+        usedWords = [String]()
+        rootWord = ""
+        newWord = ""
     }
     
     func getStartingWord(from words: String) -> String {
