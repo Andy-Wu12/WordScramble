@@ -74,6 +74,10 @@ struct ContentView: View {
             return
         }
         
+        guard isValidLength(word: answer) else {
+            wordError(title: "Word too short", message: "Guesses must be longer than two characters")
+            return
+        }
         withAnimation {
             usedWords.insert(answer, at: 0)
         }
@@ -116,6 +120,10 @@ struct ContentView: View {
         }
 
         return true
+    }
+    
+    func isValidLength(word: String) -> Bool {
+        return word.count > 2
     }
     
     func wordError(title: String, message: String) {
