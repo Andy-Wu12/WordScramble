@@ -19,6 +19,8 @@ struct ContentView: View {
     @State private var usedWords = [String]()
     @State private var rootWord = ""
     @State private var newWord = ""
+    @State private var score = 0
+    
     @State private var errorTitle = ""
     @State private var errorMessage = ""
     @State private var showingError = false
@@ -26,6 +28,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
+                Text("Score: \(score)")
                 Section {
                     TextField("Enter your word", text: $newWord)
                         .onSubmit(addNewWord)
@@ -37,7 +40,7 @@ struct ContentView: View {
                         }
                         .textInputAutocapitalization(.never)
                 }
-
+                
                 Section {
                     ForEach(usedWords, id: \.self) { word in
                         HStack {
@@ -88,6 +91,7 @@ struct ContentView: View {
             usedWords.insert(answer, at: 0)
         }
         
+        score += getWordValue(word: answer)
         newWord = ""
     }
     
@@ -106,6 +110,7 @@ struct ContentView: View {
     
     func resetGame() {
         usedWords = [String]()
+        score = 0
         rootWord = ""
         newWord = ""
     }
@@ -142,6 +147,11 @@ struct ContentView: View {
         errorTitle = title
         errorMessage = message
         showingError = true
+    }
+    
+    func getWordValue(word: String) -> Int {
+        // TODO: Make up some equation for word value
+        return 1
     }
 }
 
