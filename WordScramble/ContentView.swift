@@ -150,8 +150,9 @@ struct ContentView: View {
     }
     
     func getWordValue(word: String) -> Int {
-        // TODO: Make up some equation for word value
-        return 1
+        // Random made-up equation
+        // (Input length x # words found) + (100 x # words found)
+        return (word.count * usedWords.count) + (100 * usedWords.count)
     }
 }
 
